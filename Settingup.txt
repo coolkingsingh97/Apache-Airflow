@@ -1,0 +1,7 @@
+## This is how to set up apache airflow ##
+
+## First we need to install Python if you don't already have it ##
+
+## Next, on the command line ##
+
+ py -m pip install 'apache-airflow[postgres,slack,celery]'
