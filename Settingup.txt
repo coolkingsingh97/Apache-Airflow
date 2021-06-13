@@ -1,7 +1,37 @@
 ## This is how to set up apache airflow ##
 
-## First we need to install Python if you don't already have it ##
+## If you are using Windows, you need to first install an wsl (windows subsystem for linux), for which you can use the microsoft store or download an ubuntu distro from using powershell or command line go to where you have downloaded the file and type the following command to install the distro ##
 
-## Next, on the command line ##
+Add-AppxPackage .\Ubuntu_2004.2020.424.0_x64.app
 
- py -m pip install 'apache-airflow[postgres,slack,celery]'
+
+ ## Enable permissions ##
+
+
+## 1. Click Start > Settings > Update & security > For developers and then select the Developer mode radio box then click Yes. ##
+
+## 2. Press Windows key + R then type: optionalfeatures.exe then hit Enter. Scroll down then check off Windows Subsystem for Linux then click OK. Restart your PC. ##
+
+## On the start menu, now you can have the ubuntu application installed...click on it and enter a password and username. ## 
+
+
+## Install the following dependencies ##
+
+sudo apt-get install software-properties-common
+sudo apt-add-repository universe
+sudo apt-get update
+sudo apt-get install python-setuptools
+sudo apt install python3-pip
+pip3 install apache-airflow
+
+## Open the following ##
+sudo nano /etc/wsl.conf
+
+## Add the following code to this file ##
+[automount]
+root = /
+options = "metadata"
+
+## Check the installation using this command ##
+
+airflow info
