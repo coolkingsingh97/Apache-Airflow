@@ -35,3 +35,7 @@ options = "metadata"
 ## Check the installation using this command ##
 
 airflow info
+
+## Initialize airflow ##
+
+airflow initdb
