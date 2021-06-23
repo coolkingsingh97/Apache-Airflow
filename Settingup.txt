@@ -64,7 +64,14 @@ airflow users create \
 >     --email spiderman@superhero.org \
 >     --password *****
 
-## 
+
+
 
 ## now go to localhost:8080 on your web browser to open airflow ##
+
+## Reset db after making changes to the cfg file ## 
+airflow reset db
+
+## Edit the config file using airflow.cfg ##
+
 
