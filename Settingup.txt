@@ -22,7 +22,12 @@ sudo apt-add-repository universe
 sudo apt-get update
 sudo apt-get install python-setuptools
 sudo apt install python3-pip
+
+## install apache airflow ##
 pip3 install apache-airflow
+
+## Install db dependencies ##
+pip3 install apache-airflow[postgres,slack,celery]
 
 ## Open the following ##
 sudo nano /etc/wsl.conf
@@ -38,4 +43,28 @@ airflow info
 
 ## Initialize airflow ##
 
-airflow initdb
+airflow db init
+
+## Starting airflow webserver ##
+airflow webserver
+# if you want to change the port #
+airflow webserver -p 80804
+
+## Start airflow scheduler ##
+
+airflow scheduler
+
+## Create username and password ##
+
+airflow users create \
+>     --username admin \
+>     --firstname Peter \
+>     --lastname Parker \
+>     --role Admin \
+>     --email spiderman@superhero.org \
+>     --password *****
+
+## 
+
+## now go to localhost:8080 on your web browser to open airflow ##
+
