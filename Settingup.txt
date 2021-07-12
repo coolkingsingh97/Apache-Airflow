@@ -74,4 +74,6 @@ airflow reset db
 
 ## Edit the config file using airflow.cfg ##
 
+Change Load examples to True
+
 
