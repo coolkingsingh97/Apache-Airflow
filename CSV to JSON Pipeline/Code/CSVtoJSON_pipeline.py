@@ -19,7 +19,7 @@ def CSVToJSON():
 	df=pd.read_csv("C:\\Users\\Kulraj\\Documents\\GitHub\\Data Engineering with Python\\Writing Files\\Files\\data.csv")
 	for i,r in df.iterrows():
 		print(r['name'])
-	df.to_JSON("C:\\Users\\Kulraj\\Documents\\GitHub\\Apache-Airflow\\CSV to JSON Pipeline\\Files\\fromAirflow.JSON",orient='records')
+	df.to_json("C:\\Users\\Kulraj\\Documents\\GitHub\\Apache-Airflow\\CSV to JSON Pipeline\\Files\\fromAirflow.JSON",orient='records')
 
 
 # specifying arguments passed to DAG()
@@ -41,7 +41,7 @@ with DAG('MyCSVDAG',
 	) as dag:
 	#Task: printing out a statement using bash
 
-	print_starting = BashOperator(task_id='starting',bash_command='echo"I am reading the CSV now....."')
+	print_starting = BashOperator(task_id='starting',bash_command='echo "I am reading the CSV now....."')
 
 	#Task: call funtion defined earlier
 
