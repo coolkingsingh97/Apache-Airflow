@@ -14,7 +14,7 @@ from elasticsearch import Elasticsearch
 
 default_args = {
 	'owner': 'paulcrickard',
-	'start_date' : dt.datetime(2021,22,8)
+	'start_date' : dt.datetime(2021,8,22),
 	'retries' : 1,
 	'retry_delay' : dt.timedelta(minutes=5),
 }

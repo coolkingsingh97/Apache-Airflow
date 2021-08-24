@@ -1,0 +1,5 @@
+Running files on Airflow with WSL
+
+If you are coding in a Text editor or IDE, save your file and then copy it to the dags directory of your airflow installation on linux.
+
+To access the linux instance on windows, go to network and manually enter in the path bar "\\wsl$"
