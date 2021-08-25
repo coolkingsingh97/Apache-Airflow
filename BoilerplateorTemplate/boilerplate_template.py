@@ -12,6 +12,22 @@ from elasticsearch import Elasticsearch
 # Specifying arguments for DAG
 # NOTE: Start Time should be a day before if we want to run the task daily. (Ask Tim why?)
 
+def queryPostgresql():
+	conn_string="dbname='dataengineering' host='localhost' user='postgres' password='postgres'"
+	conn = db.connect(conn_string)
+	df = pd.read_sql("select name,city from users",conn)
+	df.to_csv('postgresqldata.csv')
+	print("---------Data Saved-------")
+
+def insertElasticsearch():
+	es=Elasticsearch()
+	df = pd.read_csv('postgresqldata.csv')
+	for i,r in df.iterrows():
+		doc = r.to_json()
+		res = es.index(index = "frompostgresql",
+						doc_type="doc", body=doc)
+		print(res)
+
 default_args = {
 	'owner': 'paulcrickard',
 	'start_date' : dt.datetime(2021,8,22),
@@ -36,20 +52,6 @@ with DAG('MyDBdag',
 
 getData >> insertData
 
-def queryPostgresql():
-	conn_string="dbname='dataengineering' host='localhost' user='postgres' password='postgres'"
-	conn = db.connect(conn_string)
-	df = pd.read_sql("select name,city frm users",conn)
-	df.to_csv('postgresqldata.csv')
-	print("---------Data Saved-------")
 
-def insertElasticsearch():
-	es=Elasticsearch()
-	df = pd.read_csv('postgresqldata.csv')
-	for i,r in df.iterrows():
-		doc = r.to_json()
-		res = es.index(index = "frompostgresql",
-						doc_type="doc", body=doc)
-		print(res)
 
 
