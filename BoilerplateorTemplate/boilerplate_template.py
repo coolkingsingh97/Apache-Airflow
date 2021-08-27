@@ -15,7 +15,7 @@ from elasticsearch import Elasticsearch
 def queryPostgresql():
 	conn_string="dbname='dataengineering' host='localhost' user='postgres' password='postgres'"
 	conn = db.connect(conn_string)
-	df = pd.read_sql("select name,city from users",conn)
+	df = pd.read_sql('select name,city from "People"',conn)
 	df.to_csv('postgresqldata.csv')
 	print("---------Data Saved-------")
 
@@ -25,7 +25,7 @@ def insertElasticsearch():
 	for i,r in df.iterrows():
 		doc = r.to_json()
 		res = es.index(index = "frompostgresql",
-						doc_type="doc", body=doc)
+						doc_type="doc", body=doc,request_timeout = 30)
 		print(res)
 
 default_args = {
