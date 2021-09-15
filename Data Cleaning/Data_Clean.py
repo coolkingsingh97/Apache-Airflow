@@ -13,11 +13,12 @@ from elasticsearch import Elasticsearch
 # NOTE: Start Time should be a day before if we want to run the task daily. (Ask Tim why?)
 
 def cleanScooter():
-	df=pd.read_csv('scooter.csv')
-	df.drop(columns = ["region_id"], inplace=True)
-	df.columns = [x.lower() for x in df.columns]
-	df['started_at'] = pd.to_datetime(df['started_at'],format = '%m/%d/%Y %H:%M')
-	df.to_csv('cleanscooter.csv')
+        df=pd.read_csv('scooter.csv')
+        df.drop(columns = ["region_id"], inplace=True)
+        df.columns = [x.lower() for x in df.columns]
+        df['started_at'] = pd.to_datetime(df['started_at'],
+                                          format = '%m/%d/%Y %H:%M')
+        df.to_csv('cleanscooter.csv')
 
 
 def filterData():
@@ -44,11 +45,12 @@ with DAG('CleanData',
 							# '0****',
 
 		) as dag:
-
-	cleanData = PythonOperator(task_id='clean',python_callable=cleanScooter)
-	selectData = PythonOperator(task_id='filter',python_callable=filterData)
-
-	copyFile = BashOperator(task_id='copy',bash_command = 'cp /home/kkohli/may23-june3.csv /home/kkohli/Desktop')
+        cleanData = PythonOperator(task_id='clean',
+                                   python_callable=cleanScooter)
+        selectData = PythonOperator(task_id='filter',
+                                    python_callable=filterData)
+        copyFile = BashOperator(task_id='copy',
+                                bash_command = 'cp /home/kkohli/may23-june3.csv /home/kkohli/Desktop')
 
 # NOTE: Very imp to make sure you have the correct permissions to access files and folders.
 # NOTE: If multiple processes try to touch the same file or the user tries to access the file it can break the pipeline
@@ -56,7 +58,6 @@ with DAG('CleanData',
 cleanData >> selectData >> copyFile
 
 
-getData >> insertData
 
 
 
