@@ -30,7 +30,7 @@ def filterData():
 
 default_args = {
 	'owner': 'KJ',
-	'start_date' : dt.datetime(2021,9,6),
+	'start_date' : dt.datetime(2021,9,13),
 	'retries' : 1,
 	'retry_delay' : dt.timedelta(minutes=5),
 }
@@ -50,15 +50,13 @@ with DAG('CleanData',
 	selectData = PythonOperator(task_id='filter',
 								python_callable=filterData)
 
-copyFile = BashOperator(task_id='copy',
+	copyFile = BashOperator(task_id='copy',
 										bash_command = 'cp /home/kkohli/may23-june3.csv /home/kkohli/Desktop')
 
 # NOTE: Very imp to make sure you have the correct permissions to access files and folders.
 # NOTE: If multiple processes try to touch the same file or the user tries to access the file it can break the pipeline
 
 cleanData >> selectData >> copyFile
-
-
 
 
 getData >> insertData
