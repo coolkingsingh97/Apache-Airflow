@@ -45,13 +45,10 @@ with DAG('CleanData',
 
 		) as dag:
 
-	cleanData = PythonOperator(task_id='clean',
-		python_callable=cleanScooter)
-	selectData = PythonOperator(task_id='filter',
-								python_callable=filterData)
+	cleanData = PythonOperator(task_id='clean',python_callable=cleanScooter)
+	selectData = PythonOperator(task_id='filter',python_callable=filterData)
 
-	copyFile = BashOperator(task_id='copy',
-										bash_command = 'cp /home/kkohli/may23-june3.csv /home/kkohli/Desktop')
+	copyFile = BashOperator(task_id='copy',bash_command = 'cp /home/kkohli/may23-june3.csv /home/kkohli/Desktop')
 
 # NOTE: Very imp to make sure you have the correct permissions to access files and folders.
 # NOTE: If multiple processes try to touch the same file or the user tries to access the file it can break the pipeline
