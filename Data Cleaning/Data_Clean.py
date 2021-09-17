@@ -13,7 +13,7 @@ from elasticsearch import Elasticsearch
 # NOTE: Start Time should be a day before if we want to run the task daily. (Ask Tim why?)
 
 def cleanScooter():
-        df=pd.read_csv('scooter.csv')
+        df=pd.read_csv('/home/kkohli/airflow/data/read/scooter_data.csv')
         df.drop(columns = ["region_id"], inplace=True)
         df.columns = [x.lower() for x in df.columns]
         df['started_at'] = pd.to_datetime(df['started_at'],
